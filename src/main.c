@@ -24,6 +24,47 @@ t_pays	afghanistan, afrique_du_sud, albanie, algerie, allemagne, andorre,
 	tchad, thailande, togo, tunisie, turkmenistan, turquie, ukraine,
 	uruguay, vatican, venezuela, vietnam, yemen, zambie, zimbabwe;
 
+int	main(void)
+{
+	char	*depart;
+	char	*arrivee;
+	t_pays	*actuel;
+
+	srand(time(NULL));
+	random_itineraire(&depart, &arrivee);
+	init_pays();
+	t_pays	countries[] = {
+		afghanistan, afrique_du_sud, albanie, algerie, allemagne, andorre,
+		angola, arabie_saoudite, argentine, armenie, autriche, azerbaidjan, 
+		bahrein, bangladesh, belgique, belize, benin, bhoutan, bielorussie, birmanie,
+		bolivie, bosnie, botswana, bresil, brunei, bulgarie, burkina_faso,
+		burundi, cambodge, cameroun, canada, chili, chine, colombie,
+		republique_du_congo, coree_du_nord, coree_du_sud, costa_rica,
+		cote_ivoire, croatie, danemark, djibouti, egypte, emirats_arabes_unis,
+		equateur, erythree, espagne, estonie, eswatini, etats_unis, ethiopie,
+		finlande, france, gabon, gambie, georgie, ghana, grece, guatemala,
+		guinee, guinee_equatoriale, guinee_bissau, guyana, honduras, hongrie,
+		inde, indonesie, irak, iran, palestine, italie, jordanie, kazakhstan,
+		kenya, kirghizistan, kosovo, koweit, laos, lesotho, lettonie, liban,
+		liberia, libye, liechtenstein, lituanie, luxembourg, macedoine,
+		malaisie, malawi, mali, maroc, mauritanie, mexique, moldavie, monaco,
+		mongolie, montenegro, mozambique, namibie, nepal, nicaragua, niger,
+		nigeria, norvege, oman, ouganda, ouzbekistan, pakistan, panama,
+		papouasie, paraguay, pays_bas, perou, pologne, portugal, qatar,
+		republique_centrafrique, republique_democratique_du_congo, tchequie,
+		roumanie, russie, rwanda, saint_marin, salvador, senegal, serbie,
+		sierra_leone, singapour, slovaquie, slovenie, somalie, soudan,
+		soudan_du_sud, suede, suisse, suriname, syrie, tadjikistan, tanzanie,
+		tchad, thailande, togo, tunisie, turkmenistan, turquie, ukraine,
+		uruguay, vatican, venezuela, vietnam, yemen, zambie, zimbabwe
+	};
+	actuel = get_depart(depart, countries);
+	game(depart, arrivee, actuel);
+	free(depart);
+	free(arrivee);
+	return (0);
+}
+
 void	init_pays(void)
 {
 	all_zero(&afghanistan);
@@ -108,6 +149,7 @@ void	init_pays(void)
 	autriche.frontieres[4] = &slovenie;
 	autriche.frontieres[5] = &italie;
 	autriche.frontieres[6] = &suisse;
+	autriche.frontieres[7] = &liechtenstein;
 	all_zero(&azerbaidjan);
 	azerbaidjan.noms[0] = "AZERBAIDJAN";
 	azerbaidjan.frontieres[0] = &armenie;
@@ -333,7 +375,7 @@ void	init_pays(void)
 	etats_unis.noms[1] = "ETATS UNIS";
 	etats_unis.frontieres[0] = &canada;
 	etats_unis.frontieres[1] = &mexique;
-	all_zero(&ethiopie)
+	all_zero(&ethiopie);
 	ethiopie.noms[0] = "ETHIOPIE";
 	ethiopie.frontieres[0] = &soudan;
 	ethiopie.frontieres[1] = &soudan_du_sud;
@@ -419,7 +461,7 @@ void	init_pays(void)
 	hongrie.frontieres[0] = &autriche;
 	hongrie.frontieres[1] = &slovaquie;
 	hongrie.frontieres[2] = &ukraine;
-	hongrie.frontieres[3] = &roumanie:
+	hongrie.frontieres[3] = &roumanie;
 	hongrie.frontieres[4] = &serbie;
 	hongrie.frontieres[5] = &croatie;
 	hongrie.frontieres[6] = &slovenie;
@@ -556,7 +598,7 @@ void	init_pays(void)
 	macedoine.frontieres[4] = &grece;
 	all_zero(&malaisie);
 	malaisie.noms[0] = "MALAISIE";
-	malaise.frontieres[0] = &indonesie;
+	malaisie.frontieres[0] = &indonesie;
 	malaisie.frontieres[1] = &brunei;
 	malaisie.frontieres[2] = &thailande;
 	malaisie.frontieres[3] = &singapour;
@@ -767,10 +809,10 @@ void	init_pays(void)
 	rwanda.frontieres[1] = &ouganda;
 	rwanda.frontieres[2] = &tanzanie;
 	rwanda.frontieres[3] = &burundi;
-	all_zero(&saint_matin);
+	all_zero(&saint_marin);
 	saint_marin.noms[0] = "SAINT MARIN";
 	saint_marin.frontieres[0] = &italie;
-	all_zeroa(&salvador);
+	all_zero(&salvador);
 	salvador.noms[0] = "SALVADOR";
 	salvador.noms[1] = "EL SALVADOR";
 	salvador.frontieres[0] = &guatemala;
@@ -796,7 +838,7 @@ void	init_pays(void)
 	sierra_leone.noms[0] = "SIERRA LEONE";
 	sierra_leone.frontieres[0] = &guinee;
 	sierra_leone.frontieres[1] = &liberia;
-	all_zero(&singour);
+	all_zero(&singapour);
 	singapour.noms[0] = "SINGAPOUR";
 	singapour.frontieres[0] = &malaisie;
 	all_zero(&slovaquie);
@@ -820,9 +862,9 @@ void	init_pays(void)
 	all_zero(&soudan);
 	soudan.noms[0] = "SOUDAN";
 	soudan.frontieres[0] = &egypte;
-	soudan.frontieres[1] = &lybie;
+	soudan.frontieres[1] = &libye;
 	soudan.frontieres[2] = &tchad;
-	soudan.frontieres[3] = &repblique_cenrtafrique;
+	soudan.frontieres[3] = &republique_centrafrique;
 	soudan.frontieres[4] = &soudan_du_sud;
 	soudan.frontieres[5] = &ethiopie;
 	soudan.frontieres[6] = &erythree;
@@ -847,7 +889,7 @@ void	init_pays(void)
 	suisse.frontieres[3] = &autriche;
 	suisse.frontieres[4] = &italie;
 	all_zero(&suriname);
-	surinale.noms[0] = "SURINAME";
+	suriname.noms[0] = "SURINAME";
 	suriname.frontieres[0] = &guyana;
 	suriname.frontieres[1] = &france;
 	suriname.frontieres[2] = &bresil;
@@ -902,15 +944,59 @@ void	init_pays(void)
 	turkmenistan.frontieres[1] = &ouzbekistan;
 	turkmenistan.frontieres[2] = &afghanistan;
 	turkmenistan.frontieres[3] = &iran;
-}
-
-int	main(void)
-{
-	char	*depart;
-	char	*arrivee;
-
-	srand(time(NULL));
-	random_itineraire(&depart, &arrivee);
-	init_pays();
-	return (0);
+	all_zero(&turquie);
+	turquie.noms[0]= "TURQUIE";
+	turquie.frontieres[0] = &grece;
+	turquie.frontieres[1] = &georgie;
+	turquie.frontieres[2] = &armenie;
+	turquie.frontieres[3] = &iran;
+	turquie.frontieres[4] = &irak;
+	turquie.frontieres[5] = &syrie;
+	turquie.frontieres[6] = &bulgarie;
+	all_zero(&ukraine);
+	ukraine.noms[0] = "UKRAINE";
+	ukraine.frontieres[0] = &pologne;
+	ukraine.frontieres[1] = &bielorussie;
+	ukraine.frontieres[2] = &russie;
+	ukraine.frontieres[3] = &moldavie;
+	ukraine.frontieres[4] = &roumanie;
+	ukraine.frontieres[5] = &hongrie;
+	ukraine.frontieres[6] = &slovaquie;
+	all_zero(&uruguay);
+	uruguay.noms[0] = "URUGUAY";
+	uruguay.frontieres[0] = &argentine;
+	uruguay.frontieres[1] = &bresil;
+	all_zero(&vatican);
+	vatican.noms[0] = "VATICAN";
+	vatican.frontieres[0] = &italie;
+	all_zero(&venezuela);
+	venezuela.noms[0] = "VENEZUELA";
+	venezuela.frontieres[0] = &colombie;
+	venezuela.frontieres[1] = &guyana;
+	venezuela.frontieres[2] = &bresil;
+	all_zero(&vietnam);
+	vietnam.noms[0] = "VIETNAM";
+	vietnam.frontieres[0] = &chine;
+	vietnam.frontieres[1] = &laos;
+	vietnam.frontieres[2] = &cambodge;
+	all_zero(&yemen);
+	yemen.noms[0] = "YEMEN";
+	yemen.frontieres[0] = &arabie_saoudite;
+	yemen.frontieres[1] = &oman;
+	all_zero(&zambie);
+	zambie.noms[0] = "ZAMBIE";
+	zambie.frontieres[0] = &angola;
+	zambie.frontieres[1] = &republique_democratique_du_congo;
+	zambie.frontieres[2] = &tanzanie;
+	zambie.frontieres[3] = &malawi;
+	zambie.frontieres[4] = &mozambique;
+	zambie.frontieres[5] = &zimbabwe;
+	zambie.frontieres[6] = &botswana;
+	zambie.frontieres[7] = &namibie;
+	all_zero(&zimbabwe);
+	zimbabwe.noms[0] = "ZIMBABWE";
+	zimbabwe.frontieres[0] = &zambie;
+	zimbabwe.frontieres[1] = &mozambique;
+	zimbabwe.frontieres[2] = &afrique_du_sud;
+	zimbabwe.frontieres[3] = &botswana;
 }

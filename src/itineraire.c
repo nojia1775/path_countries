@@ -61,7 +61,7 @@ char	*etats[] = {
 		"Guatemala",
 		"Guinee",
 		"Guinee Equatoriale",
-		"Guinee-Bissau",
+		"Guinee Bissau",
 		"Guyana",
 		"Honduras",
 		"Hongrie",
@@ -116,7 +116,7 @@ char	*etats[] = {
 		"Pologne",
 		"Portugal",
 		"Qatar",
-		"Republique Centrafrique",
+		"Republique Centrafricaine",
 		"Republique Democratique du Congo",
 		"Tchequie",
 		"Roumanie",
@@ -157,13 +157,12 @@ char	*etats[] = {
 
 void	random_itineraire(char **depart, char **arrivee)
 {
-	*depart = etats[rand() % 152];
-	*arrivee = etats[rand() % 152];
+	*depart = upcase(etats[rand() % 152]);
+	*arrivee = upcase(etats[rand() % 152]);
 
 	while (!strcmp(*depart, *arrivee))
 	{
-		*depart = etats[rand() % 152];
-		*arrivee = etats[rand() % 152];
+		*depart = upcase(etats[rand() % 152]);
+		*arrivee = upcase(etats[rand() % 152]);
 	}
-	printf("Itniraire a suivre : \n%s -> %s\n", *depart, *arrivee);
 }

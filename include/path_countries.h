@@ -7,7 +7,6 @@
 # include <readline/readline.h>
 # include <time.h>
 # include <unistd.h>
-//# include "../LIBFT/libft.h"
 
 typedef struct s_pays	t_pays;
 
@@ -19,6 +18,7 @@ void	affichage(char *depart, char *arrivee, t_pays *actuel);
 char	*upcase(const char *str);
 t_pays	*get_depart(char *depart, t_pays *countries);
 void	game(char *depart, char *arrivee, t_pays *actuel);
+void	space_trim(char *str);
 
 struct s_pays
 {

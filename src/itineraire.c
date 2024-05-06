@@ -157,8 +157,8 @@ char	*etats[] = {
 
 void	random_itineraire(char **depart, char **arrivee)
 {
-	*depart = upcase(etats[rand() % 152]);
-	*arrivee = upcase(etats[rand() % 152]);
+	*depart = upcase(etats[rand() % 151]);
+	*arrivee = upcase(etats[rand() % 151]);
 
 	while (!strcmp(*depart, *arrivee))
 	{

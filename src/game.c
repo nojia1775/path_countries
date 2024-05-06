@@ -9,7 +9,10 @@ static int	isvalid(t_pays *actuel, char *str)
 	up = upcase(str);
 	if (!up)
 		return (0);
+	space_trim(up);
 	i = 0;
+	if (!strcmp(up, "EXIT"))
+		return (free(up), -2);
 	while (actuel->frontieres[i] != NULL)
 	{
 		j = 0;
@@ -34,6 +37,13 @@ void	game(char *depart, char *arrivee, t_pays *actuel)
 		{
 			str = readline("Choisis un pays : ");
 			valid = isvalid(actuel, str);
+			free(str);
+			if (valid == -2)
+			{
+				free(depart);
+				free(arrivee);
+				exit(1);
+			}
 			if (valid != -1)
 			{
 				actuel = actuel->frontieres[valid];
@@ -45,5 +55,5 @@ void	game(char *depart, char *arrivee, t_pays *actuel)
 		clear_scean();
 		affichage(depart, arrivee, actuel);
 	}
-	printf("GAGNE\n");
+	printf("\nGAGNE\n");
 }

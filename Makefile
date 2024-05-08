@@ -7,7 +7,8 @@ OBJS_DIR = obj
 SRCS = src/main.c \
        src/itineraire.c \
        src/utils.c \
-       src/game.c
+       src/game.c \
+       src/find_path.c
 
 OBJS = $(patsubst src/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 

@@ -33,7 +33,7 @@ int	main(void)
 	srand(time(NULL));
 	random_itineraire(&depart, &arrivee);
 	init_pays();
-	t_pays	countries[] = {
+	t_pays countries[] = {
 		afghanistan, afrique_du_sud, albanie, algerie, allemagne, andorre,
 		angola, arabie_saoudite, argentine, armenie, autriche, azerbaidjan, 
 		bahrein, bangladesh, belgique, belize, benin, bhoutan, bielorussie, birmanie,
@@ -58,7 +58,14 @@ int	main(void)
 		tchad, thailande, togo, tunisie, turkmenistan, turquie, ukraine,
 		uruguay, vatican, venezuela, vietnam, yemen, zambie, zimbabwe
 	};
-	actuel = get_depart(depart, countries);
+	actuel = get_country(depart, countries);
+	init_distance(arrivee, countries);
+	/*int i = 0;
+	while (i < 153)
+	{
+		printf("%s\t%d\n", countries[i].noms[0], countries[i].distance);
+		i++;
+	}*/
 	game(depart, arrivee, actuel);
 	free(depart);
 	free(arrivee);
@@ -353,6 +360,7 @@ void	init_pays(void)
 	equateur.noms[0] = "EQUATEUR";
 	equateur.frontieres[0] = &colombie;
 	equateur.frontieres[1] = &perou;
+	all_zero(&erythree);
 	erythree.noms[0] = "ERYTHREE";
 	erythree.frontieres[0] = &soudan;
 	erythree.frontieres[1] = &ethiopie;
@@ -447,6 +455,7 @@ void	init_pays(void)
 	guinee_bissau.noms[0] = "GUINEE BISSAU";
 	guinee_bissau.frontieres[0] = &senegal;
 	guinee_bissau.frontieres[1] = &guinee;
+	all_zero(&guyana);
 	guyana.noms[0] = "GUYANA";
 	guyana.frontieres[0] = &venezuela;
 	guyana.frontieres[1] = &bresil;

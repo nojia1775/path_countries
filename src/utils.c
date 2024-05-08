@@ -10,6 +10,7 @@ void	all_zero(t_pays *pays)
 	i = 0;
 	while (i < 15)
 		pays->frontieres[i++] = NULL;
+	pays->distance = 999;
 }
 
 void	clear_scean(void)
@@ -32,12 +33,12 @@ void	affichage(char *depart, char *arrivee, t_pays *actuel)
 	printf("\n");
 }
 
-t_pays	*get_depart(char *depart, t_pays *countries)
+t_pays	*get_country(char *depart, t_pays *countries)
 {
 	int	i;
 
 	i = 0;
-	while (i < 151)
+	while (i < 153)
 	{
 		if (!strcmp(depart, countries[i].noms[0]))
 			return (&countries[i]);

@@ -19,7 +19,8 @@ char	*upcase(const char *str);
 t_pays	*get_country(char *depart, t_pays *countries);
 void	game(char *depart, char *arrivee, t_pays *actuel);
 void	space_trim(char *str);
-void	init_distance(char *arrivee, t_pays *countries);
+void	init_distance(char *arrivee, t_pays **countries);
+void	bot(t_pays **countries, char *depart);
 
 struct s_pays
 {

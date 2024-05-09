@@ -1,6 +1,6 @@
 #include "../include/path_countries.h"
 
-/*static int	there_is_999(t_pays *countries)
+static int	there_is_999(t_pays *countries)
 {
 	int	i;
 
@@ -12,9 +12,9 @@
 		i++;
 	}
 	return (0);
-}*/
+}
 
-void	init_distance(char *arrivee, t_pays *countries)
+void	init_distance(char *arrivee, t_pays **countries)
 {
 	t_pays	*cur;
 	int	i;
@@ -22,20 +22,18 @@ void	init_distance(char *arrivee, t_pays *countries)
 	int	j;
 
 	dis = 0;
-	cur = get_country(arrivee, countries);
+	cur = get_country(arrivee, *countries);
 	cur->distance = 0;
-	int k = 0;
-	while (k++ < 2/*there_is_999(countries)*/)
+	while (there_is_999(*countries))
 	{
 		i = 0;
 		while (i < 153)
 		{
 			j = 0;
-			while (countries[i].distance == 999 && countries[i].frontieres[j])
+			while (countries[i]->distance == 999 && countries[i]->frontieres[j])
 			{
-				printf("--- %s %d %d\n", countries[i].noms[0], countries[i].frontieres[j]->distance, dis);
-				if (countries[i].frontieres[j]->distance == dis)
-					countries[i].distance = dis + 1;
+				if (countries[i]->frontieres[j]->distance == dis)
+					countries[i]->distance = dis + 1;
 				j++;
 			}
 			i++;

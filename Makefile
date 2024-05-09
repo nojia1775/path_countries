@@ -8,8 +8,9 @@ SRCS = src/main.c \
        src/itineraire.c \
        src/utils.c \
        src/game.c \
-       src/find_path.c
-
+       src/find_path.c \
+       src/bot.c
+ 
 OBJS = $(patsubst src/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 
 NAME = path_countries

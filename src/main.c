@@ -33,40 +33,35 @@ int	main(void)
 	srand(time(NULL));
 	random_itineraire(&depart, &arrivee);
 	init_pays();
-	t_pays countries[] = {
-		afghanistan, afrique_du_sud, albanie, algerie, allemagne, andorre,
-		angola, arabie_saoudite, argentine, armenie, autriche, azerbaidjan, 
-		bahrein, bangladesh, belgique, belize, benin, bhoutan, bielorussie, birmanie,
-		bolivie, bosnie, botswana, bresil, brunei, bulgarie, burkina_faso,
-		burundi, cambodge, cameroun, canada, chili, chine, colombie,
-		republique_du_congo, coree_du_nord, coree_du_sud, costa_rica,
-		cote_ivoire, croatie, danemark, djibouti, egypte, emirats_arabes_unis,
-		equateur, erythree, espagne, estonie, eswatini, etats_unis, ethiopie,
-		finlande, france, gabon, gambie, georgie, ghana, grece, guatemala,
-		guinee, guinee_equatoriale, guinee_bissau, guyana, honduras, hongrie,
-		inde, indonesie, irak, iran, palestine, italie, jordanie, kazakhstan,
-		kenya, kirghizistan, kosovo, koweit, laos, lesotho, lettonie, liban,
-		liberia, libye, liechtenstein, lituanie, luxembourg, macedoine,
-		malaisie, malawi, mali, maroc, mauritanie, mexique, moldavie, monaco,
-		mongolie, montenegro, mozambique, namibie, nepal, nicaragua, niger,
-		nigeria, norvege, oman, ouganda, ouzbekistan, pakistan, panama,
-		papouasie, paraguay, pays_bas, perou, pologne, portugal, qatar,
-		republique_centrafrique, republique_democratique_du_congo, tchequie,
-		roumanie, russie, rwanda, saint_marin, salvador, senegal, serbie,
-		sierra_leone, singapour, slovaquie, slovenie, somalie, soudan,
-		soudan_du_sud, suede, suisse, suriname, syrie, tadjikistan, tanzanie,
-		tchad, thailande, togo, tunisie, turkmenistan, turquie, ukraine,
-		uruguay, vatican, venezuela, vietnam, yemen, zambie, zimbabwe
+	t_pays *countries[] = {
+		&afghanistan, &afrique_du_sud, &albanie, &algerie, &allemagne, &andorre,
+		&angola, &arabie_saoudite, &argentine, &armenie, &autriche, &azerbaidjan, 
+		&bahrein, &bangladesh, &belgique, &belize, &benin, &bhoutan, &bielorussie, &birmanie,
+		&bolivie, &bosnie, &botswana, &bresil, &brunei, &bulgarie, &burkina_faso,
+		&burundi, &cambodge, &cameroun, &canada, &chili, &chine, &colombie,
+		&republique_du_congo, &coree_du_nord, &coree_du_sud, &costa_rica,
+		&cote_ivoire, &croatie, &danemark, &djibouti, &egypte, &emirats_arabes_unis,
+		&equateur, &erythree, &espagne, &estonie, &eswatini, &etats_unis, &ethiopie,
+		&finlande, &france, &gabon, &gambie, &georgie, &ghana, &grece, &guatemala,
+		&guinee, &guinee_equatoriale, &guinee_bissau, &guyana, &honduras, &hongrie,
+		&inde, &indonesie, &irak, &iran, &palestine, &italie, &jordanie, &kazakhstan,
+		&kenya, &kirghizistan, &kosovo, &koweit, &laos, &lesotho, &lettonie, &liban,
+		&liberia, &libye, &liechtenstein, &lituanie, &luxembourg, &macedoine,
+		&malaisie, &malawi, &mali, &maroc, &mauritanie, &mexique, &moldavie, &monaco,
+		&mongolie, &montenegro, &mozambique, &namibie, &nepal, &nicaragua, &niger,
+		&nigeria, &norvege, &oman, &ouganda, &ouzbekistan, &pakistan, &panama,
+		&papouasie, &paraguay, &pays_bas, &perou, &pologne, &portugal, &qatar,
+		&republique_centrafrique, &republique_democratique_du_congo, &tchequie,
+		&roumanie, &russie, &rwanda, &saint_marin, &salvador, &senegal, &serbie,
+		&sierra_leone, &singapour, &slovaquie, &slovenie, &somalie, &soudan,
+		&soudan_du_sud, &suede, &suisse, &suriname, &syrie, &tadjikistan, &tanzanie,
+		&tchad, &thailande, &togo, &tunisie, &turkmenistan, &turquie, &ukraine,
+		&uruguay, &vatican, &venezuela, &vietnam, &yemen, &zambie, &zimbabwe
 	};
-	actuel = get_country(depart, countries);
+	actuel = get_country(depart, *countries);
 	init_distance(arrivee, countries);
-	/*int i = 0;
-	while (i < 153)
-	{
-		printf("%s\t%d\n", countries[i].noms[0], countries[i].distance);
-		i++;
-	}*/
 	game(depart, arrivee, actuel);
+	bot(countries, depart);
 	free(depart);
 	free(arrivee);
 	return (0);
@@ -809,7 +804,7 @@ void	init_pays(void)
 	russie.frontieres[6] = &georgie;
 	russie.frontieres[7] = &azerbaidjan;
 	russie.frontieres[8] = &kazakhstan;
-	russie.frontieres[8] = &chine;
+	russie.frontieres[9] = &chine;
 	russie.frontieres[10] = &mongolie;
 	russie.frontieres[11] = &coree_du_nord;
 	all_zero(&rwanda);

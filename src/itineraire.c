@@ -132,7 +132,7 @@ char	*etats[] = {
 		"Slovenie",
 		"Somalie",
 		"Soudan",
-		"Soudan du Sude",
+		"Soudan du Sud",
 		"Suede",
 		"Suisse",
 		"Suriname",

@@ -6,20 +6,23 @@ void	bot(t_pays **countries, char *depart)
 	int		i;
 	int		next_pays;
 	int		best_distance;
-	static char	*best_path[10];
+	static char	*best_path[10] = {0};
 	int		j;
 
-	for (j = 0; j < 100; j++)
-		best_path[j] = NULL;
+	printf("\nTrajet le plus court : \n");
 	j = 0;
 	best_distance = 999;
-	bot = get_country(depart, *countries);
+	next_pays = 0;
+	bot = get_country(depart, countries);
+	if (!bot)
+		return ((void)printf("Probleme recuperation pays de depart (bot())\n"));
 	while (bot->distance != 0)
 	{
 		i = 0;
 		while (bot->frontieres[i])
 		{
-			if (bot->frontieres[i]->distance < best_distance)
+			//printf("%s %d %d\n", bot->frontieres[i]->noms[0], bot->frontieres[i]->distance, best_distance);
+			if (bot->frontieres[i]->distance <= best_distance)
 			{
 				best_distance = bot->frontieres[i]->distance;
 				next_pays = i;

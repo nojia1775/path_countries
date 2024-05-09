@@ -16,11 +16,13 @@ void	init_pays(void);
 void	clear_scean(void);
 void	affichage(char *depart, char *arrivee, t_pays *actuel);
 char	*upcase(const char *str);
-t_pays	*get_country(char *depart, t_pays *countries);
+t_pays	*get_country(char *depart, t_pays **countries);
 void	game(char *depart, char *arrivee, t_pays *actuel);
 void	space_trim(char *str);
 void	init_distance(char *arrivee, t_pays **countries);
 void	bot(t_pays **countries, char *depart);
+void	help(void);
+void	shortcut(t_pays **countries);
 
 struct s_pays
 {

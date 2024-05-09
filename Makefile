@@ -9,7 +9,8 @@ SRCS = src/main.c \
        src/utils.c \
        src/game.c \
        src/find_path.c \
-       src/bot.c
+       src/bot.c \
+       src/parsing.c
  
 OBJS = $(patsubst src/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 

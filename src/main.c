@@ -24,15 +24,19 @@ t_pays	afghanistan, afrique_du_sud, albanie, algerie, allemagne, andorre,
 	tchad, thailande, togo, tunisie, turkmenistan, turquie, ukraine,
 	uruguay, vatican, venezuela, vietnam, yemen, zambie, zimbabwe;
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	char	*depart;
 	char	*arrivee;
 	t_pays	*actuel;
 
+	if (argc > 3)
+		return (printf("Argument invalide\n"));
+	if (!strcmp(argv[1], "-h"))
+		return (help(), 0);
 	srand(time(NULL));
-	random_itineraire(&depart, &arrivee);
-	init_pays();
+	if (strcmp(argv[1], "-shortcut"))
+		random_itineraire(&depart, &arrivee);
 	t_pays *countries[] = {
 		&afghanistan, &afrique_du_sud, &albanie, &algerie, &allemagne, &andorre,
 		&angola, &arabie_saoudite, &argentine, &armenie, &autriche, &azerbaidjan, 
@@ -58,8 +62,12 @@ int	main(void)
 		&tchad, &thailande, &togo, &tunisie, &turkmenistan, &turquie, &ukraine,
 		&uruguay, &vatican, &venezuela, &vietnam, &yemen, &zambie, &zimbabwe
 	};
-	actuel = get_country(depart, *countries);
+	init_pays();
+	if (!strcmp(argv[1], "-shortcut"))
+		return (shortcut(countries), 0);
+	actuel = get_country(depart, countries);
 	init_distance(arrivee, countries);
+	affichage(depart, arrivee, actuel);
 	game(depart, arrivee, actuel);
 	bot(countries, depart);
 	free(depart);
@@ -510,6 +518,8 @@ void	init_pays(void)
 	italie.frontieres[1] = &suisse;
 	italie.frontieres[2] = &autriche;
 	italie.frontieres[3] = &slovenie;
+	italie.frontieres[4] = &vatican;
+	italie.frontieres[5] = &saint_marin;
 	all_zero(&jordanie);
 	jordanie.noms[0] = "JORDANIE";
 	jordanie.frontieres[0] = &palestine;

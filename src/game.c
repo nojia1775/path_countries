@@ -31,7 +31,6 @@ void	game(char *depart, char *arrivee, t_pays *actuel)
 	char	*str;
 	int	valid;
 
-	affichage(depart, arrivee, actuel);
 	while (strcmp(actuel->noms[0], arrivee))
 	{
 		while (1)

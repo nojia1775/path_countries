@@ -1,13 +1,13 @@
 #include "../include/path_countries.h"
 
-static int	there_is_999(t_pays *countries)
+static int	there_is_999(t_pays **countries)
 {
 	int	i;
 
 	i = 0;
 	while (i < 153)
 	{
-		if (countries[i].distance == 999)
+		if (countries[i]->distance == 999)
 			return (1);
 		i++;
 	}
@@ -22,9 +22,9 @@ void	init_distance(char *arrivee, t_pays **countries)
 	int	j;
 
 	dis = 0;
-	cur = get_country(arrivee, *countries);
+	cur = get_country(arrivee, countries);
 	cur->distance = 0;
-	while (there_is_999(*countries))
+	while (there_is_999(countries))
 	{
 		i = 0;
 		while (i < 153)

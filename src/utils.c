@@ -33,15 +33,21 @@ void	affichage(char *depart, char *arrivee, t_pays *actuel)
 	printf("\n");
 }
 
-t_pays	*get_country(char *depart, t_pays *countries)
+t_pays	*get_country(char *depart, t_pays **countries)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (i < 153)
 	{
-		if (!strcmp(depart, countries[i].noms[0]))
-			return (&countries[i]);
+		j = 0;
+		while (countries[i]->noms[j])
+		{
+			if (!strcmp(depart, countries[i]->noms[j]))
+				return (countries[i]);
+			j++;
+		}
 		i++;
 	}
 	return (NULL);

@@ -21,8 +21,7 @@ void	bot(t_pays **countries, char *depart)
 		i = 0;
 		while (bot->frontieres[i])
 		{
-			//printf("%s %d %d\n", bot->frontieres[i]->noms[0], bot->frontieres[i]->distance, best_distance);
-			if (bot->frontieres[i]->distance <= best_distance)
+			if (bot->frontieres[i]->distance < best_distance)
 			{
 				best_distance = bot->frontieres[i]->distance;
 				next_pays = i;

@@ -155,14 +155,25 @@ char	*etats[] = {
 		"Zimbabwe"
 	};
 
-void	random_itineraire(char **depart, char **arrivee)
+void	random_itineraire(char **depart, char **arrivee, int russe)
 {
 	*depart = upcase(etats[rand() % 151]);
 	*arrivee = upcase(etats[rand() % 151]);
-
-	while (!strcmp(*depart, *arrivee))
+	
+	if (russe)
 	{
-		*depart = upcase(etats[rand() % 152]);
-		*arrivee = upcase(etats[rand() % 152]);
+		while (!strcmp(*depart, *arrivee))
+		{
+			*depart = upcase(etats[rand() % 152]);
+			*arrivee = upcase(etats[rand() % 152]);
+		}
+	}
+	else
+	{
+		while (!strcmp(*depart, *arrivee) || !strcmp(*depart, "RUSSIE") || !strcmp(*arrivee, "RUSSIE"))
+		{
+			*depart = upcase(etats[rand() % 152]);
+			*arrivee = upcase(etats[rand() % 152]);
+		}
 	}
 }

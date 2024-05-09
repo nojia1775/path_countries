@@ -29,14 +29,10 @@ int	main(int argc, char **argv)
 	char	*depart;
 	char	*arrivee;
 	t_pays	*actuel;
+	int	russe;
+	int	r;
 
-	if (argc > 3)
-		return (printf("Argument invalide\n"));
-	if (!strcmp(argv[1], "-h"))
-		return (help(), 0);
 	srand(time(NULL));
-	if (strcmp(argv[1], "-shortcut"))
-		random_itineraire(&depart, &arrivee);
 	t_pays *countries[] = {
 		&afghanistan, &afrique_du_sud, &albanie, &algerie, &allemagne, &andorre,
 		&angola, &arabie_saoudite, &argentine, &armenie, &autriche, &azerbaidjan, 
@@ -56,26 +52,36 @@ int	main(int argc, char **argv)
 		&nigeria, &norvege, &oman, &ouganda, &ouzbekistan, &pakistan, &panama,
 		&papouasie, &paraguay, &pays_bas, &perou, &pologne, &portugal, &qatar,
 		&republique_centrafrique, &republique_democratique_du_congo, &tchequie,
-		&roumanie, &russie, &rwanda, &saint_marin, &salvador, &senegal, &serbie,
+		&roumanie, &rwanda, &saint_marin, &salvador, &senegal, &serbie,
 		&sierra_leone, &singapour, &slovaquie, &slovenie, &somalie, &soudan,
 		&soudan_du_sud, &suede, &suisse, &suriname, &syrie, &tadjikistan, &tanzanie,
 		&tchad, &thailande, &togo, &tunisie, &turkmenistan, &turquie, &ukraine,
-		&uruguay, &vatican, &venezuela, &vietnam, &yemen, &zambie, &zimbabwe
+		&uruguay, &vatican, &venezuela, &vietnam, &yemen, &zambie, &zimbabwe, &russie
 	};
-	init_pays();
-	if (!strcmp(argv[1], "-shortcut"))
-		return (shortcut(countries), 0);
-	actuel = get_country(depart, countries);
-	init_distance(arrivee, countries);
-	affichage(depart, arrivee, actuel);
-	game(depart, arrivee, actuel);
-	bot(countries, depart);
-	free(depart);
-	free(arrivee);
+	r = parsing(argc, argv, &russe, countries);
+	if (!r)
+		return (printf("Argument invalide\n"));
+	else if (r == 1)
+	{
+		if (!russe)
+			countries[152] = NULL;
+		random_itineraire(&depart, &arrivee, russe);
+		init_pays(russe);
+		actuel = get_country(depart, countries);
+		init_distance(arrivee, countries);
+		affichage(depart, arrivee, actuel);
+		game(depart, arrivee, actuel);
+		bot(countries, depart);
+		free(depart);
+		free(arrivee);
+	}
+	if (!russe)
+		countries[152] = NULL;
+	init_pays(russe);
 	return (0);
 }
 
-void	init_pays(void)
+void	init_pays(int russe)
 {
 	all_zero(&afghanistan);
 	afghanistan.noms[0] = "AFGHANISTAN";
@@ -164,8 +170,8 @@ void	init_pays(void)
 	azerbaidjan.noms[0] = "AZERBAIDJAN";
 	azerbaidjan.frontieres[0] = &armenie;
 	azerbaidjan.frontieres[1] = &iran;
-	azerbaidjan.frontieres[2] = &russie;
-	azerbaidjan.frontieres[3] = &georgie;
+	azerbaidjan.frontieres[3] = russe == 1 ? &russie : NULL;
+	azerbaidjan.frontieres[2] = &georgie;
 	all_zero(&bahrein);
 	bahrein.noms[0] = "BAHREIN";
 	bahrein.frontieres[0] = &arabie_saoudite;
@@ -199,8 +205,8 @@ void	init_pays(void)
 	bielorussie.frontieres[0] = &pologne;
 	bielorussie.frontieres[1] = &lituanie;
 	bielorussie.frontieres[2] = &lettonie;
-	bielorussie.frontieres[3] = &russie;
-	bielorussie.frontieres[4] = &ukraine;
+	bielorussie.frontieres[4] = russe == 1 ? &russie : NULL;
+	bielorussie.frontieres[3] = &ukraine;
 	all_zero(&birmanie);
 	birmanie.noms[0] = "BIRMANIE";
 	birmanie.noms[1] = "MYANMAR";
@@ -287,7 +293,7 @@ void	init_pays(void)
 	chili.frontieres[2] = &argentine;
 	all_zero(&chine);
 	chine.noms[0] = "CHINE";
-	chine.frontieres[0] = &russie;
+	chine.frontieres[13] = russe == 1 ? &russie : NULL;
 	chine.frontieres[1] = &mongolie;
 	chine.frontieres[2] = &kazakhstan;
 	chine.frontieres[3] = &kirghizistan;
@@ -300,7 +306,7 @@ void	init_pays(void)
 	chine.frontieres[10] = &birmanie;
 	chine.frontieres[11] = &laos;
 	chine.frontieres[12] = &vietnam;
-	chine.frontieres[13] = &coree_du_nord;
+	chine.frontieres[0] = &coree_du_nord;
 	all_zero(&colombie);
 	colombie.noms[0] = "COLOMBIE";
 	colombie.frontieres[0] = &panama;
@@ -375,8 +381,8 @@ void	init_pays(void)
 	espagne.frontieres[2] = &andorre;
 	all_zero(&estonie);
 	estonie.noms[0] = "ESTONIE";
-	estonie.frontieres[0] = &russie;
-	estonie.frontieres[1] = &lettonie;
+	estonie.frontieres[1] = russe == 1 ? &russie : NULL;
+	estonie.frontieres[0] = &lettonie;
 	all_zero(&eswatini);
 	eswatini.noms[0] = "ESWATINI";
 	eswatini.frontieres[0] = &afrique_du_sud;
@@ -398,7 +404,7 @@ void	init_pays(void)
 	finlande.noms[0] = "FINLANDE";
 	finlande.frontieres[0] = &norvege;
 	finlande.frontieres[1] = &suede;
-	finlande.frontieres[2] = &russie;
+	finlande.frontieres[2] = russe == 1 ? &russie : NULL;
 	all_zero(&france);
 	france.noms[0] = "FRANCE";
 	france.frontieres[0] = &belgique;
@@ -420,10 +426,10 @@ void	init_pays(void)
 	gambie.frontieres[0] = &senegal;
 	all_zero(&georgie);
 	georgie.noms[0] = "GEORGIE";
-	georgie.frontieres[0] = &russie;
+	georgie.frontieres[3] = russe == 1 ? &russie : NULL;
 	georgie.frontieres[1] = &armenie;
 	georgie.frontieres[2] = &azerbaidjan;
-	georgie.frontieres[3] = &turquie;
+	georgie.frontieres[0] = &turquie;
 	all_zero(&ghana);
 	ghana.noms[0] = "GHANA";
 	ghana.frontieres[0] = &cote_ivoire;
@@ -528,11 +534,11 @@ void	init_pays(void)
 	jordanie.frontieres[3] = &arabie_saoudite;
 	all_zero(&kazakhstan);
 	kazakhstan.noms[0] = "KAZAKHSTAN";
-	kazakhstan.frontieres[0] = &russie;
+	kazakhstan.frontieres[4] = russe == 1 ? &russie : NULL;
 	kazakhstan.frontieres[1] = &ouzbekistan;
 	kazakhstan.frontieres[2] = &kirghizistan;
 	kirghizistan.frontieres[3] = &chine;
-	kazakhstan.frontieres[4] = &turkmenistan;
+	kazakhstan.frontieres[0] = &turkmenistan;
 	all_zero(&kenya);
 	kenya.noms[0] = "KENYA";
 	kenya.frontieres[0] = &ouganda;
@@ -568,9 +574,9 @@ void	init_pays(void)
 	all_zero(&lettonie);
 	lettonie.noms[0] = "LETTONIE";
 	lettonie.frontieres[0] = &estonie;
-	lettonie.frontieres[1] = &russie;
+	lettonie.frontieres[3] = russe == 1 ? &russie : NULL;
 	lettonie.frontieres[2] = &bielorussie;
-	lettonie.frontieres[3] = &lituanie;
+	lettonie.frontieres[1] = &lituanie;
 	all_zero(&liban);
 	liban.noms[0] = "LIBAN";
 	liban.frontieres[0] = &syrie;
@@ -654,8 +660,8 @@ void	init_pays(void)
 	monaco.frontieres[0] = &france;
 	all_zero(&mongolie);
 	mongolie.noms[0] = "MONGOLIE";
-	mongolie.frontieres[0] = &russie;
-	mongolie.frontieres[1] = &chine;
+	mongolie.frontieres[1] = russe == 1 ? &russie : NULL;
+	mongolie.frontieres[0] = &chine;
 	all_zero(&montenegro);
 	montenegro.noms[0] = "MONTENEGRO";
 	montenegro.frontieres[0] = &croatie;
@@ -704,7 +710,7 @@ void	init_pays(void)
 	norvege.noms[0] = "NORVEGE";
 	norvege.frontieres[0] = &suede;
 	norvege.frontieres[1] = &finlande;
-	norvege.frontieres[2] = &russie;
+	norvege.frontieres[2] = russe == 1 ? &russie : NULL;
 	all_zero(&oman);
 	oman.noms[0] = "OMAN";
 	oman.frontieres[0] = &arabie_saoudite;
@@ -803,20 +809,23 @@ void	init_pays(void)
 	roumanie.frontieres[2] = &moldavie;
 	roumanie.frontieres[3] = &bulgarie;
 	roumanie.frontieres[4] = &serbie;
-	all_zero(&russie);
-	russie.noms[0] = "RUSSIE";
-	russie.frontieres[0] = &norvege;
-	russie.frontieres[1] = &finlande;
-	russie.frontieres[2] = &estonie;
-	russie.frontieres[3] = &lettonie;
-	russie.frontieres[4] = &bielorussie;
-	russie.frontieres[5] = &ukraine;
-	russie.frontieres[6] = &georgie;
-	russie.frontieres[7] = &azerbaidjan;
-	russie.frontieres[8] = &kazakhstan;
-	russie.frontieres[9] = &chine;
-	russie.frontieres[10] = &mongolie;
-	russie.frontieres[11] = &coree_du_nord;
+	if (russe)
+	{
+		all_zero(&russie);
+		russie.noms[0] = "RUSSIE";
+		russie.frontieres[0] = &norvege;
+		russie.frontieres[1] = &finlande;
+		russie.frontieres[2] = &estonie;
+		russie.frontieres[3] = &lettonie;
+		russie.frontieres[4] = &bielorussie;
+		russie.frontieres[5] = &ukraine;
+		russie.frontieres[6] = &georgie;
+		russie.frontieres[7] = &azerbaidjan;
+		russie.frontieres[8] = &kazakhstan;
+		russie.frontieres[9] = &chine;
+		russie.frontieres[10] = &mongolie;
+		russie.frontieres[11] = &coree_du_nord;
+	}
 	all_zero(&rwanda);
 	rwanda.noms[0] = "RWANDA";
 	rwanda.frontieres[0] = &republique_democratique_du_congo;
@@ -971,11 +980,11 @@ void	init_pays(void)
 	ukraine.noms[0] = "UKRAINE";
 	ukraine.frontieres[0] = &pologne;
 	ukraine.frontieres[1] = &bielorussie;
-	ukraine.frontieres[2] = &russie;
+	ukraine.frontieres[6] = russe == 1 ? &russie : NULL;
 	ukraine.frontieres[3] = &moldavie;
 	ukraine.frontieres[4] = &roumanie;
 	ukraine.frontieres[5] = &hongrie;
-	ukraine.frontieres[6] = &slovaquie;
+	ukraine.frontieres[2] = &slovaquie;
 	all_zero(&uruguay);
 	uruguay.noms[0] = "URUGUAY";
 	uruguay.frontieres[0] = &argentine;

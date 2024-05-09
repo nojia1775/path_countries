@@ -17,6 +17,7 @@ static int	valid(char *pays, t_pays **countries)
 	while (i < 153)
 	{
 		j = 0;
+		printf("%s\n", countries[i]->noms[j]);
 		while (countries[i]->noms[j])
 		{
 			if (!strcmp(pays, countries[i]->noms[j]))
@@ -61,9 +62,40 @@ void	shortcut(t_pays **countries)
 	}
 	arrivee = up;
 	init_distance(arrivee, countries);
-	/*for (int k = 0; k < 153; k++)
-		printf("%s %d\n", countries[k]->noms[0], countries[k]->distance);*/
 	bot(countries, depart);
 	free(arrivee);
 	free(depart);
+}
+
+int	parsing(int argc, char **argv, int *russe, t_pays **countries)
+{
+	if (argc > 3)
+		return (0);
+	if (argc == 1)
+	{
+		*russe = 1;
+		return (1);
+	}
+	if (argc == 2)
+	{
+		if (!strcmp(argv[1], "-shortcut"))
+			return (shortcut(countries), 2);
+		else if (!strcmp(argv[1], "-russie=no"))
+			*russe = 0;
+		else
+			return (0);
+	}
+	else if (argc == 3)
+	{
+		if (strcmp(argv[1], "-shortcut") || strcmp(argv[1], "-russie=no") || strcmp(argv[2], "-shortcut") || strcmp(argv[2], "-russie=no"))
+			return (0);
+		if (!strcmp(argv[1], "-russie=no") || !strcmp(argv[2], "-russie=no"))
+			*russe = 0;
+		if (!strcmp(argv[1], "-shortcut") || !strcmp(argv[2], "-shortcut"))
+		{
+			countries[152] = NULL;
+			return (shortcut(countries), 2);
+		}
+	}
+	return (1);
 }

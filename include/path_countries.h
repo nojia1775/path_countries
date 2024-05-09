@@ -10,9 +10,9 @@
 
 typedef struct s_pays	t_pays;
 
-void	random_itineraire(char **depart, char **arrivee);
+void	random_itineraire(char **depart, char **arrivee, int russe);
 void	all_zero(t_pays *pays);
-void	init_pays(void);
+void	init_pays(int russe);
 void	clear_scean(void);
 void	affichage(char *depart, char *arrivee, t_pays *actuel);
 char	*upcase(const char *str);
@@ -23,6 +23,7 @@ void	init_distance(char *arrivee, t_pays **countries);
 void	bot(t_pays **countries, char *depart);
 void	help(void);
 void	shortcut(t_pays **countries);
+int	parsing(int argc, char **argv, int *russe, t_pays **countries);
 
 struct s_pays
 {

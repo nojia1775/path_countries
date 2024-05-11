@@ -50,10 +50,10 @@ void	game(char *depart, char *arrivee, t_pays *actuel)
 				break;
 			}
 			else
-				printf("Pays invalide\n");
+				printf("%sPays invalide%s\n", BRED, RESET);
 		}
 		clear_scean();
 		affichage(depart, arrivee, actuel);
 	}
-	printf("\nGAGNE\n");
+	printf("\n%sGAGNE%s\n", BHYELLOW, RESET);
 }

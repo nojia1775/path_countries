@@ -60,13 +60,13 @@ int	main(int argc, char **argv)
 	};
 	r = parsing(argc, argv, &russe, countries);
 	if (!r)
-		return (printf("Argument invalide\n"));
+		return (printf("%sArgument invalide%s\n", RED, RESET));
 	else if (r == 1)
 	{
 		random_itineraire(&depart, &arrivee, russe);
 		init_pays(russe);
 		actuel = get_country(depart, countries);
-		init_distance(arrivee, countries);
+		init_distance(arrivee, countries, russe);
 		affichage(depart, arrivee, actuel);
 		game(depart, arrivee, actuel);
 		bot(countries, depart);

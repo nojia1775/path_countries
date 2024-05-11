@@ -33,6 +33,6 @@ void	bot(t_pays **countries, char *depart)
 	}
 	j = 0;
 	while (best_path[j])
-		printf("%s -> ", best_path[j++]);
-	printf("%s\n", bot->noms[0]);
+		printf("%s%s -> %s", RED, best_path[j++], RESET);
+	printf("%s%s%s\n", RED, bot->noms[0], RESET);
 }

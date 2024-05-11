@@ -25,12 +25,12 @@ void	affichage(char *depart, char *arrivee, t_pays *actuel)
 	int		y;
 
 	historique[i++] = actuel->noms[0];
-	printf("Objectif :\n%s -> %s\n", depart, arrivee);
+	printf("Objectif :\n%s%s -> %s%s\n", BHCYAN, depart, arrivee, RESET);
 	printf("\nHistorique : \n");
 	y = 0;
 	while (y < i)
-		printf("%s -> ", historique[y++]);
-	printf("\n");
+		printf("%s%s%s -> ", HGREEN, historique[y++], RESET);
+	printf("\n\n");
 }
 
 t_pays	*get_country(char *depart, t_pays **countries)

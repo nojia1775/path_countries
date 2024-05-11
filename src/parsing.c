@@ -50,7 +50,7 @@ void	shortcut(t_pays **countries, int russe)
 			return ;
 		if (valid(up, countries, russe))
 			break;
-		printf("Pays invalide\n");
+		printf("%sPays invalide%s\n", BRED, RESET);
 	}
 	depart = up;
 	while (1)
@@ -65,7 +65,7 @@ void	shortcut(t_pays **countries, int russe)
 			return ;
 		if (valid(up, countries, russe))
 			break;
-		printf("Pays invalide\n");
+		printf("%sPays invalide%s\n", BRED, RESET);
 	}
 	arrivee = up;
 	init_distance(arrivee, countries, russe);

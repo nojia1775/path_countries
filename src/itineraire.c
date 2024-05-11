@@ -16,6 +16,7 @@ char	*etats[] = {
 		"Bahrein",
 		"Bangladesh",
 		"Belgique",
+		"Belize",
 		"Benin",
 		"Bhoutan",
 		"Bielorussie",
@@ -157,23 +158,23 @@ char	*etats[] = {
 
 void	random_itineraire(char **depart, char **arrivee, int russe)
 {
-	*depart = upcase(etats[rand() % 151]);
-	*arrivee = upcase(etats[rand() % 151]);
+	*depart = upcase(etats[rand() % 153]);
+	*arrivee = upcase(etats[rand() % 153]);
 	
 	if (russe)
 	{
 		while (!strcmp(*depart, *arrivee))
 		{
-			*depart = upcase(etats[rand() % 152]);
-			*arrivee = upcase(etats[rand() % 152]);
+			*depart = upcase(etats[rand() % 153]);
+			*arrivee = upcase(etats[rand() % 153]);
 		}
 	}
 	else
 	{
 		while (!strcmp(*depart, *arrivee) || !strcmp(*depart, "RUSSIE") || !strcmp(*arrivee, "RUSSIE"))
 		{
-			*depart = upcase(etats[rand() % 152]);
-			*arrivee = upcase(etats[rand() % 152]);
+			*depart = upcase(etats[rand() % 153]);
+			*arrivee = upcase(etats[rand() % 153]);
 		}
 	}
 }

@@ -8,16 +8,18 @@ void	help(void)
 	printf("\t- ./path_countries -shortcut\t(lance un prompt qui demande un pays de depart et d'arrive et donne le chemin le plus court entre les deux)\n");
 }
 
-static int	valid(char *pays, t_pays **countries)
+static int	valid(char *pays, t_pays **countries, int russe)
 {
 	int	i;
 	int	j;
 
 	i = 0;
+	if (!russe)
+		if (!strcmp(pays, "RUSSIE"))
+			return (0);
 	while (i < 153)
 	{
 		j = 0;
-		printf("%s\n", countries[i]->noms[j]);
 		while (countries[i]->noms[j])
 		{
 			if (!strcmp(pays, countries[i]->noms[j]))
@@ -29,12 +31,13 @@ static int	valid(char *pays, t_pays **countries)
 	return (0);
 }
 
-void	shortcut(t_pays **countries)
+void	shortcut(t_pays **countries, int russe)
 {
 	char	*depart;
 	char	*arrivee;
 	char	*up;
 
+	init_pays(russe);
 	while (1)
 	{
 		depart = readline("Choisir un pays de depart : ");
@@ -43,7 +46,9 @@ void	shortcut(t_pays **countries)
 		if (!up)
 			return ;
 		space_trim(up);
-		if (valid(up, countries))
+		if (!strcmp(up, "EXIT"))
+			return ;
+		if (valid(up, countries, russe))
 			break;
 		printf("Pays invalide\n");
 	}
@@ -56,12 +61,14 @@ void	shortcut(t_pays **countries)
 		if (!up)
 			return ;
 		space_trim(up);
-		if (valid(up, countries))
+		if (!strcmp(up, "EXIT"))
+			return ;
+		if (valid(up, countries, russe))
 			break;
 		printf("Pays invalide\n");
 	}
 	arrivee = up;
-	init_distance(arrivee, countries);
+	init_distance(arrivee, countries, russe);
 	bot(countries, depart);
 	free(arrivee);
 	free(depart);
@@ -79,22 +86,26 @@ int	parsing(int argc, char **argv, int *russe, t_pays **countries)
 	if (argc == 2)
 	{
 		if (!strcmp(argv[1], "-shortcut"))
-			return (shortcut(countries), 2);
+			return (shortcut(countries, *russe), 2);
 		else if (!strcmp(argv[1], "-russie=no"))
 			*russe = 0;
+		else if (!strcmp(argv[1], "-h"))
+			return (help(), 2);
 		else
 			return (0);
 	}
 	else if (argc == 3)
 	{
-		if (strcmp(argv[1], "-shortcut") || strcmp(argv[1], "-russie=no") || strcmp(argv[2], "-shortcut") || strcmp(argv[2], "-russie=no"))
+		if (strcmp(argv[1], "-shortcut") && strcmp(argv[1], "-russie=no"))
+			return (0);
+		if (strcmp(argv[2], "-shortcut") && strcmp(argv[2], "-russie=no"))
 			return (0);
 		if (!strcmp(argv[1], "-russie=no") || !strcmp(argv[2], "-russie=no"))
 			*russe = 0;
 		if (!strcmp(argv[1], "-shortcut") || !strcmp(argv[2], "-shortcut"))
 		{
 			countries[152] = NULL;
-			return (shortcut(countries), 2);
+			return (shortcut(countries, *russe), 2);
 		}
 	}
 	return (1);

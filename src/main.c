@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	char	*depart;
 	char	*arrivee;
 	t_pays	*actuel;
-	int	russe;
+	int	russe = 1;
 	int	r;
 
 	srand(time(NULL));
@@ -63,8 +63,6 @@ int	main(int argc, char **argv)
 		return (printf("Argument invalide\n"));
 	else if (r == 1)
 	{
-		if (!russe)
-			countries[152] = NULL;
 		random_itineraire(&depart, &arrivee, russe);
 		init_pays(russe);
 		actuel = get_country(depart, countries);
@@ -75,6 +73,8 @@ int	main(int argc, char **argv)
 		free(depart);
 		free(arrivee);
 	}
+	else if (r == 2)
+		return (0);
 	if (!russe)
 		countries[152] = NULL;
 	init_pays(russe);
@@ -407,6 +407,7 @@ void	init_pays(int russe)
 	finlande.frontieres[2] = russe == 1 ? &russie : NULL;
 	all_zero(&france);
 	france.noms[0] = "FRANCE";
+	france.noms[1] = "GUYANE";
 	france.frontieres[0] = &belgique;
 	france.frontieres[1] = &allemagne;
 	france.frontieres[2] = &suisse;
@@ -534,11 +535,12 @@ void	init_pays(int russe)
 	jordanie.frontieres[3] = &arabie_saoudite;
 	all_zero(&kazakhstan);
 	kazakhstan.noms[0] = "KAZAKHSTAN";
-	kazakhstan.frontieres[4] = russe == 1 ? &russie : NULL;
+	kazakhstan.frontieres[5] = russe == 1 ? &russie : NULL;
 	kazakhstan.frontieres[1] = &ouzbekistan;
 	kazakhstan.frontieres[2] = &kirghizistan;
 	kirghizistan.frontieres[3] = &chine;
 	kazakhstan.frontieres[0] = &turkmenistan;
+	kazakhstan.frontieres[4] = &chine;
 	all_zero(&kenya);
 	kenya.noms[0] = "KENYA";
 	kenya.frontieres[0] = &ouganda;

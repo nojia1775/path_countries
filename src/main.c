@@ -59,6 +59,8 @@ int	main(int argc, char **argv)
 		&uruguay, &vatican, &venezuela, &vietnam, &yemen, &zambie, &zimbabwe, &russie
 	};
 	r = parsing(argc, argv, &russe, countries);
+	if (!russe)
+		printf("%sNO RUSSIAN\n\n%s", BHRED, RESET);
 	if (!r)
 		return (printf("%sArgument invalide%s\n", RED, RESET));
 	else if (r == 1)
@@ -538,7 +540,7 @@ void	init_pays(int russe)
 	kazakhstan.frontieres[5] = russe == 1 ? &russie : NULL;
 	kazakhstan.frontieres[1] = &ouzbekistan;
 	kazakhstan.frontieres[2] = &kirghizistan;
-	kirghizistan.frontieres[3] = &chine;
+	kazakhstan.frontieres[3] = &chine;
 	kazakhstan.frontieres[0] = &turkmenistan;
 	kazakhstan.frontieres[4] = &chine;
 	all_zero(&kenya);

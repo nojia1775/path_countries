@@ -9,6 +9,9 @@ void	bot(t_pays **countries, char *depart)
 	static char	*best_path[10] = {0};
 	int		j;
 
+	/*int k = -1;
+	while (++k < 153)
+		printf("%s %p %d\n", countries[k]->noms[0], countries[k], countries[k]->distance);*/
 	printf("\nTrajet le plus court : \n");
 	j = 0;
 	best_distance = 999;
@@ -31,8 +34,8 @@ void	bot(t_pays **countries, char *depart)
 		best_path[j++] = bot->noms[0];
 		bot = bot->frontieres[next_pays];
 	}
-	j = 0;
-	while (best_path[j])
-		printf("%s%s -> %s", RED, best_path[j++], RESET);
-	printf("%s%s%s\n", RED, bot->noms[0], RESET);
+	j = -1;
+	while (best_path[++j])
+		printf("%s%s -> %s", RED, best_path[j], RESET);
+	printf("%s%s : %d changements%s\n", RED, bot->noms[0], j, RESET);
 }

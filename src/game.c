@@ -30,7 +30,9 @@ void	game(char *depart, char *arrivee, t_pays *actuel)
 {
 	char	*str;
 	int	valid;
+	int	count;
 
+	count = 0;
 	while (strcmp(actuel->noms[0], arrivee))
 	{
 		while (1)
@@ -47,6 +49,7 @@ void	game(char *depart, char *arrivee, t_pays *actuel)
 			if (valid != -1)
 			{
 				actuel = actuel->frontieres[valid];
+				count++;
 				break;
 			}
 			else
@@ -55,5 +58,5 @@ void	game(char *depart, char *arrivee, t_pays *actuel)
 		clear_scean();
 		affichage(depart, arrivee, actuel);
 	}
-	printf("\n%sGAGNE%s\n", BHYELLOW, RESET);
+	printf("\n%sGAGNE : %d changements%s\n", BHYELLOW, count, RESET);
 }

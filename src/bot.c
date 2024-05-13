@@ -2,16 +2,13 @@
 
 void	bot(t_pays **countries, char *depart)
 {
-	t_pays	*bot;
-	int		i;
-	int		next_pays;
-	int		best_distance;
-	static char	*best_path[10] = {0};
-	int		j;
+	t_pays		*bot;
+	int			i;
+	int			next_pays;
+	int			best_distance;
+	int			j;
+	static char	*best_path[100] = {0};
 
-	/*int k = -1;
-	while (++k < 153)
-		printf("%s %p %d\n", countries[k]->noms[0], countries[k], countries[k]->distance);*/
 	printf("\nTrajet le plus court : \n");
 	j = 0;
 	best_distance = 999;

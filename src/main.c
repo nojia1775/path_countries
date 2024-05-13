@@ -419,6 +419,7 @@ void	init_pays(int russe)
 	france.frontieres[6] = &espagne;
 	france.frontieres[7] = &bresil;
 	france.frontieres[8] = &monaco;
+	france.frontieres[9] = &suriname;
 	all_zero(&gabon);
 	gabon.noms[0] = "GABON";
 	gabon.frontieres[0] = &guinee_equatoriale;
